@@ -16,9 +16,13 @@ export class AuthService implements OnModuleInit {
   ) {}
 
   async onModuleInit() {
-    // Initialize with a default admin user
-    await this.initializeDefaultUser();
+  if (!process.env.DATABASE_URL) {
+    console.warn('⚠️ Skipping default user initialization (no DATABASE_URL)');
+    return;
   }
+  await this.initializeDefaultUser();
+}
+
 
   private async initializeDefaultUser() {
     const adminExists = await this.prisma.user.findUnique({
