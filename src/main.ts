@@ -26,13 +26,13 @@ async function bootstrap() {
   }
   
   if (missingVars.length > 0) {
-    console.error('❌ Missing required environment variables:');
-    missingVars.forEach(varName => {
-      console.error(`   - ${varName}`);
-    });
-    console.error('\n💡 Please check your .env file. See .env.example for reference.');
-    process.exit(1);
-  }
+  console.warn('⚠️ Missing environment variables:');
+  missingVars.forEach(varName => {
+    console.warn(`   - ${varName}`);
+  });
+  console.warn('⚠️ App will start, but some features may not work.');
+}
+
   
   // Validate JWT_SECRET length
   const jwtSecret = configService.get<string>('JWT_SECRET');
@@ -59,7 +59,11 @@ async function bootstrap() {
   
   const port = configService.get<number>('PORT', 3001);
   const apiPrefix = configService.get<string>('API_PREFIX', 'api/v1');
-  const corsOrigin = configService.get<string>('CORS_ORIGIN', 'http://localhost:3000');
+  const corsOrigin = configService.get<string>(
+  'CORS_ORIGIN',
+  'https://frontend-gcc.vercel.app'
+);
+
 
   // Global prefix
   app.setGlobalPrefix(apiPrefix);
