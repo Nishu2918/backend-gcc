@@ -59,10 +59,8 @@ async function bootstrap() {
   
   const port = configService.get<number>('PORT', 3001);
   const apiPrefix = configService.get<string>('API_PREFIX', 'api/v1');
-  const corsOrigin = configService.get<string>(
-  'CORS_ORIGIN',
-  'https://frontend-gcc.vercel.app'
-);
+  const corsOrigin = configService.get<string>('CORS_ORIGIN');
+
 
 
   // Global prefix
