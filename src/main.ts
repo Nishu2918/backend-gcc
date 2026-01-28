@@ -68,9 +68,12 @@ async function bootstrap() {
 
   // CORS
   app.enableCors({
-    origin: corsOrigin,
-    credentials: true,
-  });
+  origin: corsOrigin
+    ? corsOrigin.split(',').map(o => o.trim())
+    : true,   // allow all if env missing (safe fallback for dev)
+  credentials: true,
+});
+;
 
   // Increase body size limit for file uploads (100MB)
   app.use(require('express').json({ limit: '100mb' }));
